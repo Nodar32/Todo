@@ -2,7 +2,7 @@ let body = document.querySelector("body");
 let taskName = document.querySelector("#taskName");
 let aboutTask = document.querySelector("#aboutTask");
 let save = document.querySelector("#save");
-save.onclick = function() {
+save.addEventListener('click', function() {
   //
   let taskConteiner = document.createElement("div");
   taskConteiner.classList.add("taskConteiner");
@@ -42,6 +42,10 @@ save.onclick = function() {
   taskConteiner.appendChild(taskList);
   taskConteiner.appendChild(about);
   body.appendChild(taskConteiner);
+
+  taskConteiner.addEventListener('click', function(event){
+    onExpandClick(event);
+  });
   // Функционал кнопок
   // let showMoreAll = document.querySelectorAll(".showMore");
   // for (elem of showMoreAll) {
@@ -50,4 +54,14 @@ save.onclick = function() {
   //     about.style.display = "block";
   //   };
   // }
-};
+});
+
+function onExpandClick(evt){
+  let el = evt.currentTarget;
+
+  let about = el.querySelector('.about');
+
+  about.style.display = 'block';
+}
+
+
