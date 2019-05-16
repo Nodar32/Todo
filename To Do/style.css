@@ -46,6 +46,7 @@ body {
   cursor: pointer;
 }
 .taskConteiner {
+  position: relative;
   background-color: #ccc;
   padding: 20px 10px;
 }
@@ -56,10 +57,11 @@ body {
   align-items: center;
 }
 .check {
-  width: 40px;
+  width: 50px;
   height: 50px;
   border: 1px solid black;
   cursor: pointer;
+  text-align: center;
 }
 .taskTitle {
   width: 800px;
@@ -84,10 +86,17 @@ img {
   width: 40px;
   cursor: pointer;
 }
-.test
-{
+.test {
   border: 2px solid red;
   padding: 20px;
   background-color: black;
   color: #fff;
+}
+.checkY {
+  background-color: black;
+  text-decoration: line-through;
+  color: #fff;
+}
+.rotate {
+  transform: rotateX(180deg);
 }

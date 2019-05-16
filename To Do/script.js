@@ -1,8 +1,14 @@
 let body = document.querySelector("body");
+let allTask = document.querySelector(".allTask");
 let taskName = document.querySelector("#taskName");
 let aboutTask = document.querySelector("#aboutTask");
 let save = document.querySelector("#save");
-save.addEventListener('click', function() {
+window.onload = function() {
+  if (localStorage.getItem("all") != null) {
+    allTask.innerHTML = localStorage.getItem("all");
+  }
+};
+save.addEventListener("click", function() {
   //
   let taskConteiner = document.createElement("div");
   taskConteiner.classList.add("taskConteiner");
@@ -41,27 +47,59 @@ save.addEventListener('click', function() {
   //
   taskConteiner.appendChild(taskList);
   taskConteiner.appendChild(about);
-  body.appendChild(taskConteiner);
+  allTask.appendChild(taskConteiner);
 
-  taskConteiner.addEventListener('click', function(event){
-    onExpandClick(event);
-  });
+  // taskConteiner.addEventListener("click", function(event) {
+  //   onExpandClick(event);
+  // });
   // Функционал кнопок
-  // let showMoreAll = document.querySelectorAll(".showMore");
-  // for (elem of showMoreAll) {
-  //   console.log(elem);
-  //   elem.onclick = function() {
-  //     about.style.display = "block";
-  //   };
-  // }
+  // Отметить как выполненное
+  let checkAll = document.querySelectorAll(".check");
+  for (elem of checkAll) {
+    elem.onclick = function() {
+      if (this.parentElement.childNodes[1].classList.length == 1) {
+        let checked = document.createElement("img");
+        checked.src = "images/check.png";
+        this.appendChild(checked);
+        this.parentElement.childNodes[1].classList.add("checkY");
+        localStorage.setItem("all", allTask.innerHTML);
+      } else if (this.parentElement.childNodes[1].classList.length == 2) {
+        this.removeChild(this.firstChild);
+        this.parentElement.childNodes[1].classList.remove("checkY");
+        localStorage.setItem("all", allTask.innerHTML);
+      }
+    };
+  }
+  // Удаление таска
+  let clearAll = document.querySelectorAll(".delete");
+  for (elem of clearAll) {
+    elem.onclick = function() {
+      allTask.removeChild(this.parentElement.parentElement);
+      localStorage.setItem("all", allTask.innerHTML);
+    };
+  }
+  // Показ подробностей таска
+  let showMoreAll = document.querySelectorAll(".showMore");
+  for (elem of showMoreAll) {
+    elem.onclick = function() {
+      if (this.classList.length == 1) {
+        this.parentElement.parentElement.childNodes[1].style.display = "block";
+        this.classList.add("rotate");
+        localStorage.setItem("all", allTask.innerHTML);
+      } else if (this.classList.length == 2) {
+        this.parentElement.parentElement.childNodes[1].style.display = "none";
+        this.classList.remove("rotate");
+        localStorage.setItem("all", allTask.innerHTML);
+      }
+    };
+  }
+  localStorage.setItem("all", allTask.innerHTML);
 });
 
-function onExpandClick(evt){
-  let el = evt.currentTarget;
+// function onExpandClick(evt) {
+//   let el = evt.currentTarget;
 
-  let about = el.querySelector('.about');
+//   let about = el.querySelector(".about");
 
-  about.style.display = 'block';
-}
-
-
+//   about.style.display = "block";
+// }
